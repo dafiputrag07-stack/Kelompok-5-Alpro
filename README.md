@@ -1,2 +1,7 @@
-# Kelompok-5-Alpro
-test
+#include <stdio.h>
+
+int main() {
+  printf();
+
+  return 0;
+}
