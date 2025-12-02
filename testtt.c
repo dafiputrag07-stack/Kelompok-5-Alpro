@@ -6,29 +6,34 @@ void inputData() {
     float penghasilan, aset;
     int tanggungan;
 
-    FILE *fp = fopen("data_warga.txt", "a"); // mode append (tambah data)
+    // Membuka file dalam mode "append" → menambahkan data baru di akhir file
+    FILE *fp = fopen("data_warga.txt", "a");
     if (!fp) {
         printf("Gagal membuka file!\n");
         return;
     }
 
-    getchar(); // membersihkan buffer sebelum fgets
+    getchar(); // membersihkan buffer agar fgets berjalan normal
 
     printf("\n=== Input Data Warga ===\n");
 
+    // Input nama warga (bisa ada spasi)
     printf("Masukkan nama warga        : ");
     fgets(nama, sizeof(nama), stdin);
 
+    // Input penghasilan
     printf("Masukkan penghasilan (Rp) : ");
     scanf("%f", &penghasilan);
 
+    // Input aset
     printf("Masukkan total aset (Rp)  : ");
     scanf("%f", &aset);
 
+    // Input tanggungan
     printf("Masukkan jumlah tanggungan: ");
     scanf("%d", &tanggungan);
 
-    // Simpan ke file
+    // Menyimpan semua data ke file
     fprintf(fp, "%s %.2f %.2f %d\n", nama, penghasilan, aset, tanggungan);
     fclose(fp);
 
@@ -36,6 +41,7 @@ void inputData() {
 }
 
 void lihatData() {
+    // Membuka file dalam mode "read"
     FILE *fp = fopen("data_warga.txt", "r");
     if (!fp) {
         printf("Belum ada data tersimpan.\n");
@@ -49,7 +55,12 @@ void lihatData() {
     printf("\n=== Daftar Warga ===\n");
 
     int nomor = 1;
-    while (fscanf(fp, " %[^\n] %f %f %d", nama, &penghasilan, &aset, &tanggungan) != EOF) {
+
+    /* Membaca data per baris dari file
+       Format = nama | penghasilan | aset | tanggungan */
+    while (fscanf(fp, " %[^\n] %f %f %d",
+                  nama, &penghasilan, &aset, &tanggungan) != EOF) {
+
         printf("\nWarga #%d\n", nomor++);
         printf("Nama        : %s\n", nama);
         printf("Penghasilan : Rp %.2f\n", penghasilan);
