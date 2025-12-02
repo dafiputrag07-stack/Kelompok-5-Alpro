@@ -28,4 +28,5 @@ void generateDataDummy(Warga daftarWarga[], int *jumlahData, int jumlahYgDibuat)
         daftarWarga[i].is_prioritas = 0;
     }
     *jumlahData = jumlahYgDibuat;
+    //#include "warga.h" (Jangan lupa compile file warga.c juga saat menjalankan program)
 }
