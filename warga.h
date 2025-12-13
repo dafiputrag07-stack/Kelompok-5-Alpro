@@ -1,8 +1,7 @@
 #ifndef WARGA_H
 #define WARGA_H
 
-// === DEFINISI STRUCT (Blueprint Data) ===
-// Dibuat oleh: Anggota 02 (System Analyst)
+// definisi struct. 
 
 typedef struct {
     float total_nilai_aset; 
@@ -22,7 +21,7 @@ typedef struct {
     int is_prioritas;       
 } Warga;
 
-// Prototype Fungsi (Hanya judul fungsinya saja)
+// percobaan fungsi
 void generateDataDummy(Warga daftarWarga[], int *jumlahData, int jumlahYgDibuat);
 
 #endif
