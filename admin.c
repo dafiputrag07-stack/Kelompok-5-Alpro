@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include "struktur.h"
+#include "helper.h"
+#include "admin.h"
+#include "pengguna.h"
 
+/// menu kotak masuk
 void menuKotakMasuk ()
 {
   int pil;
