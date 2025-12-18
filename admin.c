@@ -149,3 +149,20 @@ void menuDataBansos()
         }
     } while (pil != 0);
 
+
+/// algoritma buble short
+void sortBySkor(Warga data[], int n) 
+{
+    for (int i = 0; i < n - 1; i++) 
+    {
+        for (int j = 0; j < n - i - 1; j++) 
+        {
+            if (data[j].skorAkhir < data[j + 1].skorAkhir) 
+            {
+                Warga temp = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp;
+            }
+        }
+    }
+}
