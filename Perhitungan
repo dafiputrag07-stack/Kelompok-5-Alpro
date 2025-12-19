@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "struktur.h"
+#include "helper.h"
+#include "logika.h"
+
+void hitungSkor(int i) {
+    double skor = 0;
+    if (db[i].pendapatan <= 1000000) skor += 40;
+    else if (db[i].pendapatan <= 3000000) skor += 20;
+    else skor += 10;
+
+    skor += (db[i].tanggungan * 10);
+
+    if (db[i].kondisiRumah == 3) skor += 30;
+    else if (db[i].kondisiRumah == 2) skor += 10;
+
+    if (db[i].statusKerja == 3) skor += 20;
+    else if (db[i].statusKerja == 2) skor += 10;
+
+    if (db[i].totalAset <= 10000000) skor += 20;
+    else if (db[i].totalAset <= 50000000) skor += 10;
+
+    db[i].skorAkhir = skor;
+
+    if (skor >= 90) db[i].golongan = 1;
+    else if (skor >= 75) db[i].golongan = 2;
+    else if (skor >= 60) db[i].golongan = 3;
+    else if (skor >= 45) db[i].golongan = 4;
+    else if (skor >= 30) db[i].golongan = 5;
+    else db[i].golongan = 6;
+}
+
+void simpanFile() {
+    FILE *fp = fopen(FILE_NAME, "w");
+    if (fp == NULL) return;
+
+    fprintf(fp, "%d\n", jumlahWarga);
+
+    for (int i = 0; i < jumlahWarga; i++) {
+        fprintf(fp, "%s;%s;%ld;%d;%d;%d;%ld;%d;%s;%s\n",
+            db[i].nik,
+            db[i].nama,
+            db[i].pendapatan,
+            db[i].tanggungan,
+            db[i].kondisiRumah,
+            db[i].statusKerja,
+            db[i].totalAset,
+            db[i].isiLaporan,
+            db[i].saranMasukan
+        );
+    }
+    fclose(fp);
+}
+
+
+void muatFile() {
+    FILE *fp = fopen(FILE_NAME, "r");
+    if (fp == NULL) {
+        printf("Database belum ada atau gagal dibuka.\n");
+        return;
+    }
+
+    fscanf(fp, "%d\n", &jumlahWarga);
+
+    for (int i = 0; i < jumlahWarga; i++) {
+        fscanf(fp, "%[^;];%[^;];%ld;%d;%d;%d;%ld;%[^;];%[^\n]\n",
+            db[i].nik,
+            db[i].nama,
+            &db[i].pendapatan,
+            &db[i].tanggungan,
+            &db[i].kondisiRumah,
+            &db[i].statusKerja,
+            &db[i].totalAset,
+            db[i].isiLaporan,
+            db[i].saranMasukan
+        );
+
+        strcpy(db[i].password, "12345");
+
+        hitungSkor(i);
+    }
+    fclose(fp);
+}
